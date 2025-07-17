@@ -1,4 +1,5 @@
-import React, { useRef, useEffect } from "react";
+
+import React from "react";
 import Image from "next/image";
 import AnimatedHeroTitle from "./components/AnimatedHeroTitle";
 import PinnedStoryGallerySection from "./components/PinnedStoryGallerySection";

@@ -1,7 +1,6 @@
 "use client";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import AnimatedStorySection from "./AnimatedStorySection";
 import Image from "next/image";
 
 const images = [
@@ -15,18 +14,12 @@ export default function PinnedStoryGallerySection() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
 
-  // Divide scroll progress into equal segments for each image
-  const n = images.length;
-  const opacities = images.map((_, i) => {
-    const start = i / n;
-    const mid = (i + 0.5) / n;
-    // For the last image, keep opacity 1 from its midpoint to the end
-    if (i === n - 1) {
-      return useTransform(scrollYProgress, [start, mid, 1], [0, 1, 1]);
-    }
-    const end = (i + 1) / n;
-    return useTransform(scrollYProgress, [start, mid, end], [0, 1, 0]);
-  });
+  // UseTransform must be called at the top level, not in a loop
+  const opacity0 = useTransform(scrollYProgress, [0/4, 0.125, 0.25], [0, 1, 0]);
+  const opacity1 = useTransform(scrollYProgress, [0.25, 0.375, 0.5], [0, 1, 0]);
+  const opacity2 = useTransform(scrollYProgress, [0.5, 0.625, 0.75], [0, 1, 0]);
+  const opacity3 = useTransform(scrollYProgress, [0.75, 0.875, 1], [0, 1, 1]);
+  const opacities = [opacity0, opacity1, opacity2, opacity3];
 
   // Static text content
   const title = <>
