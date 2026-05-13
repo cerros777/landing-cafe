@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Tierra Negra Café — Donde el café se convierte en ritual.",
-  description: "Landing page premium para café Tierra Negra.",
+  title: "Grano Santo Café — Donde el café se convierte en ritual.",
+  description: "Grano Santo es un café artesanal premium en San Salvador, El Salvador. Vive la experiencia del café como ritual.",
 };
 
 export default function RootLayout({

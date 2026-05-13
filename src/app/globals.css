@@ -4,22 +4,209 @@
 @import "@fontsource/inter/400.css";
 @import "@fontsource/inter/700.css";
 
-
 :root {
-  --background: #0F0F0F;
-  --foreground: #F8F6F3;
+  --background:   #0F0F0F;
+  --foreground:   #F8F6F3;
+  --bronze:       #CDAA7D;
+  --espresso:     #3E2C27;
+  --charcoal:     #0F0F0F;
+  --bone:         #F8F6F3;
+  --ash:          #B0B0B0;
+  --terracotta:   #E07548;
 }
 
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: theme('fontFamily.sans');
+  overflow-x: hidden;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #0F0F0F; }
+::-webkit-scrollbar-thumb { background: #CDAA7D; border-radius: 4px; }
+
+/* ── Reveal on scroll ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.85s ease, transform 0.85s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+/* ── Scroll bounce arrow ── */
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(8px); }
+}
+.scroll-bounce { animation: scrollBounce 2.2s ease-in-out infinite; }
+
+/* ── Infinite marquee for testimonials ── */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  animation: marquee 35s linear infinite;
+  width: max-content;
+}
+.marquee-track:hover { animation-play-state: paused; }
+
+/* ── Menu tab underline ── */
+.menu-tab {
+  position: relative;
+  color: #B0B0B0;
+  transition: color 0.3s;
+}
+.menu-tab::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0; right: 0;
+  height: 2px;
+  background: #E07548;
+  transform: scaleX(0);
+  transition: transform 0.3s;
+}
+.menu-tab.active { color: #E07548; }
+.menu-tab.active::after { transform: scaleX(1); }
+
+/* ── Pill / Eyebrow badge ── */
+.pill-accent {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(224, 117, 72, 0.13);
+  color: #E07548;
+  border: 1px solid rgba(224, 117, 72, 0.3);
+  border-radius: 9999px;
+  padding: 0.3rem 0.9rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 0.85rem;
+}
+.pill-accent::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #E07548;
+  flex-shrink: 0;
+}
+
+/* Terracotta tag (menu cards) */
+.tag-terra {
+  display: inline-block;
+  background: #E07548;
+  color: #fff;
+  border-radius: 9999px;
+  padding: 0.2rem 0.75rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+/* ── Glassmorphism card ── */
+.glass-card {
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(205,170,125,0.18);
+}
+
+/* ── Gradient text ── */
+.text-gradient {
+  background: linear-gradient(135deg, #CDAA7D 0%, #F8F6F3 60%, #CDAA7D 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Form inputs ── */
+.cafe-input {
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(205,170,125,0.25);
+  border-radius: 0.75rem;
+  padding: 0.875rem 1.25rem;
+  color: #F8F6F3;
+  font-size: 0.95rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  outline: none;
+}
+.cafe-input::placeholder { color: #6b6b6b; }
+.cafe-input:focus {
+  border-color: #CDAA7D;
+  box-shadow: 0 0 0 3px rgba(205,170,125,0.12);
+}
+
+/* ── Background Textures ── */
+.bg-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  opacity: 0.045;
+  pointer-events: none;
+}
+.bg-dots {
+  background-image: radial-gradient(circle, rgba(205,170,125,0.18) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+.bg-diagonal-lines {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent, transparent 10px,
+    rgba(205,170,125,0.045) 10px, rgba(205,170,125,0.045) 11px
+  );
+}
+.bg-horizontal-lines {
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent, transparent 22px,
+    rgba(248,246,243,0.03) 22px, rgba(248,246,243,0.03) 23px
+  );
+}
+.bg-mesh {
+  background-image:
+    linear-gradient(rgba(205,170,125,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(205,170,125,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ── Diagonal clip-path dividers ── */
+.clip-slope-top    { clip-path: polygon(0 5%, 100% 0,   100% 100%, 0 100%); }
+.clip-slope-bottom { clip-path: polygon(0 0,   100% 0,   100% 95%, 0 100%); }
+.clip-v-top        { clip-path: polygon(0 6%, 50% 0,  100% 6%,  100% 100%, 0 100%); }
+
+/* ── Image-overlap helpers ── */
+.img-float-card {
+  position: absolute;
+  border: 2px solid rgba(248,246,243,0.18);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.6), 0 0 0 1px rgba(205,170,125,0.15);
+  z-index: 30;
+}
+.img-tilt-cw  { transform: rotate( 2.5deg); }
+.img-tilt-ccw { transform: rotate(-2.5deg); }
+
+/* ── Linen/fabric micro-texture overlay ── */
+.texture-linen {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='none'/%3E%3Cpath d='M0 0h1v1H0zm2 2h1v1H2z' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
 }

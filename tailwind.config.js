@@ -7,11 +7,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        charcoal: '#0F0F0F',
-        bronze: '#CDAA7D',
-        bone: '#F8F6F3',
-        espresso: '#3E2C27',
-        ash: '#B0B0B0',
+        charcoal:   '#0F0F0F',
+        bronze:     '#CDAA7D',
+        bone:       '#F8F6F3',
+        espresso:   '#3E2C27',
+        ash:        '#B0B0B0',
+        terracotta: '#E07548',
       },
       fontFamily: {
         serif: ['"Cormorant Garamond"', '"Playfair Display"', 'serif'], // Keep for hero only
